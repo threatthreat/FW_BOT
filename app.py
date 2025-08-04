@@ -1,15 +1,12 @@
-# app.py
 from flask import Flask
+import os
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    return "Bot is alive"
-
-@app.route("/health")
+@app.route('/')
 def health():
-    return "OK", 200
+    return "Bot is alive!", 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
