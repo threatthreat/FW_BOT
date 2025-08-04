@@ -1,12 +1,11 @@
-FROM python:3.8-slim-buster
+FROM python:3.10-slim
 
-RUN apt update && apt install -y git
+RUN apt-get update && apt-get install -y git
 
 COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && pip install -r /requirements.txt flask
 
-RUN mkdir /fwdbot
-WORKDIR /fwdbot
+WORKDIR /bot
 
 COPY . .
 
