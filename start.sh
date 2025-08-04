@@ -13,7 +13,7 @@ cd JishuDeveloper/Ultra-Forward-Bot
 
 pip3 install -U -r requirements.txt
 
-# Run Flask health check server in background
+# Start Flask server in background for health check
 python3 app.py &
 
 echo "Starting Bot...."
