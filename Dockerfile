@@ -1,16 +1,15 @@
-FROM python:3.10-slim
+FROM python:3.8-slim-buster
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y --no-install-recommends git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y git
 
 COPY requirements.txt /requirements.txt
+RUN pip install --upgrade pip && pip install -r /requirements.txt flask
 
-RUN pip install --upgrade pip && pip install -r /requirements.txt
-
+RUN mkdir /fwdbot
 WORKDIR /fwdbot
+
 COPY . .
 
-CMD ["bash", "./start.sh"]
+EXPOSE 8080
+
+CMD ["sh", "./start.sh"]
