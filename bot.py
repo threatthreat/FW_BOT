@@ -16,6 +16,8 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer 
 from pyrogram.enums import ParseMode
 from pyrogram.errors import FloodWait 
+from threading import Thread
+from http.server import SimpleHTTPRequestHandler, HTTPServer
 
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
@@ -69,7 +71,19 @@ class Bot(Client):
         msg = f"@{self.username} stopped. Bye."
         await super().stop()
         logging.info(msg)
+        
+def run_dummy_server():
+    server_address = ("0.0.0.0", 8080)
+    httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
+    httpd.serve_forever()
 
+# Start the dummy HTTP server in a background thread
+Thread(target=run_dummy_server).start()
+
+# Start the bot
+if __name__ == "__main__":
+    bot = Bot()
+    bot.run()
 
 
 
